@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import *
 
 
 def homepage(request):
@@ -6,7 +7,13 @@ def homepage(request):
 
 
 def loja(request):
-    return render(request, 'loja.html')
+    produtos = Produto.objects.all()
+
+    context = {
+        'produtos': produtos,
+    }
+
+    return render(request, 'loja.html', context=context)
 
 
 def carrinho(request):

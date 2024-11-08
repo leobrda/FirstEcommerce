@@ -3,4 +3,11 @@
 
 {% block body %}
     <h1>LOJA</h1>
+
+    {% for produto in produtos %}
+        <img src="{{ produto.imagem.url }}" width="300" height="450">
+        <p>{{ produto.nome }}</p>
+        <p>{{ produto.preco }}</p>
+    {% endfor %}
+
 {% endblock %}
