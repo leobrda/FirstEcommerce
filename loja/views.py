@@ -3,7 +3,7 @@ from .models import *
 
 
 def homepage(request):
-    banners = Banner.objects.all()
+    banners = Banner.objects.filter(ativo=True)
 
     context = {
         'banners': banners,
@@ -13,7 +13,7 @@ def homepage(request):
 
 
 def loja(request):
-    produtos = Produto.objects.all()
+    produtos = Produto.objects.filter(ativo=True)
 
     context = {
         'produtos': produtos,

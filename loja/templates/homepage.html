@@ -5,11 +5,9 @@
     <h1>HOMEPAGE</h1>
 
     {% for banner in banners %}
-        {% if banner.ativo %}
             <a href="/{{ banner.link_destino }}">
                 <img src="{{ banner.imagem.url }}">
             </a>
-        {% endif %}
     {% endfor %}
 
 {% endblock %}
