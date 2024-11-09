@@ -3,7 +3,13 @@ from .models import *
 
 
 def homepage(request):
-    return render(request, 'homepage.html')
+    banners = Banner.objects.all()
+
+    context = {
+        'banners': banners,
+    }
+
+    return render(request, 'homepage.html', context=context)
 
 
 def loja(request):
