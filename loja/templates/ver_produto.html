@@ -4,8 +4,19 @@
 {% block body %}
     <h1>{{ produto.nome }}</h1>
 
-    <img src="{{ produto.imagem.url }}" width="300" height="450">
-    <p>{{ produto.nome }}</p>
-    <p>{{ produto.preco }}</p>
-    <button>Adicionar ao carrinho</button>
+    {% if tem_estoque %}
+        <img src="{{ produto.imagem.url }}" width="300" height="450">
+        <p>Produto: {{ produto.nome }}</p>
+        <p>Preço: {{ produto.preco }}</p>
+
+        {% for cor in cores %}
+            {{ cor.nome }}
+            <i class="fa-solid fa-circle" style="color: {{ cor.codigo }}"></i>
+        {% endfor%}
+
+        <button>Adicionar ao carrinho</button>
+    {% else %}
+        <p>Produto fora de estoque</p>
+    {% endif %}
+
 {% endblock %}
