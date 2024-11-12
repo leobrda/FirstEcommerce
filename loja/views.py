@@ -28,8 +28,11 @@ def loja(request, nome_categoria=None):
 def ver_produto(request, id_produto):
     produto = Produto.objects.get(id=id_produto)
 
+    itens_estoque = ItemEstoque.objects.filter(produto=produto, quantidade__gt=0)
+
     context = {
         'produto': produto,
+        'itens_estoque': itens_estoque,
     }
 
     return render(request, 'ver_produto.html', context=context)
