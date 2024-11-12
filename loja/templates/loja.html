@@ -5,7 +5,9 @@
     <h1>LOJA</h1>
 
     {% for produto in produtos %}
-        <img src="{{ produto.imagem.url }}" width="300" height="450">
+        <a href="{% url 'ver_produto' produto.id %}">
+            <img src="{{ produto.imagem.url }}" width="300" height="450">
+        </a>
         <p>{{ produto.nome }}</p>
         <p>{{ produto.preco }}</p>
     {% endfor %}
