@@ -9,10 +9,22 @@
         <p>Produto: {{ produto.nome }}</p>
         <p>Preço: {{ produto.preco }}</p>
 
+        {% if nome_cor_selecionada %}
+            Cor: {{ nome_cor_selecionada }}
+        {% endif %}
+
         {% for cor in cores %}
-            {{ cor.nome }}
-            <i class="fa-solid fa-circle" style="color: {{ cor.codigo }}"></i>
+            <a href="{% url 'ver_produto' produto.id cor.id %}">
+                <i class="fa-solid fa-circle" style="color: {{ cor.codigo }}"></i>
+            </a>
         {% endfor%}
+
+        {% if tamanhos%}
+            <p>Selecione o tamanho:</p>
+            {% for tamanho in tamanhos %}
+                <button>{{ tamanho }}</button>
+            {% endfor %}
+        {% endif %}
 
         <button>Adicionar ao carrinho</button>
     {% else %}
