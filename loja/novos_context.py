@@ -7,7 +7,9 @@ def carrinho(request):
     if request.user.is_authenticated:
         cliente = request.user.cliente
     else:
-       print('nao logado')
+        return {
+            'quantidade_produtos_carrinho': quantidade_produtos_carrinho
+        }
 
     pedido, criado = Pedido.objects.get_or_create(cliente=cliente, finalizado=False)
 
