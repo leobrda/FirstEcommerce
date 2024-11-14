@@ -111,6 +111,22 @@ class Pedido(models.Model):
     def __str__(self):
         return f'Cliente: {self.cliente.email} - ID Pedido: {self.id} - Finalizado: {self.finalizado}'
 
+    @property
+    def quantidade_total(self):
+        itens_pedido = ItensPedido.objects.filter(pedido__id=self.id)
+        quantidade = sum(
+            [item.quantidade for item in itens_pedido]
+        )
+        return quantidade
+
+    @property
+    def preco_total(self):
+        itens_pedido = ItensPedido.objects.filter(pedido__id=self.id)
+        preco = sum(
+            [item.preco_total for item in itens_pedido]
+        )
+        return preco
+
 
 class ItensPedido(models.Model):
     item_estoque = models.ForeignKey(ItemEstoque, null=True, blank=True, on_delete=models.SET_NULL)
@@ -119,6 +135,10 @@ class ItensPedido(models.Model):
 
     def __str__(self):
         return f'ID Pedido: {self.pedido.id} - {self.item_estoque.produto} - Tamanho: {self.item_estoque.tamanho} - Cor: {self.item_estoque.cor.nome} - Quantidade: {self.quantidade} unidade(s)'
+
+    @property
+    def preco_total(self):
+        return self.quantidade * self.item_estoque.produto.preco
 
 
 class Banner(models.Model):
