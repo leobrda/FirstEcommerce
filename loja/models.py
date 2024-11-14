@@ -14,7 +14,7 @@ class Cliente(models.Model):
     usuario = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.nome)
+        return f'{self.nome} - {self.email}'
 
 
 class Categoria(models.Model):
@@ -54,7 +54,7 @@ class Produto(models.Model):
     tipo = models.ForeignKey(Tipo, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f'Produto: {self.nome} - Categoria: {self.categoria} - Tipo: {self.tipo} - Preço: R${self.preco}'
+        return str(self.nome)
 
 
 class Cor(models.Model):
@@ -108,11 +108,17 @@ class Pedido(models.Model):
     endereco = models.ForeignKey(Endereco, null=True, blank=True, on_delete=models.SET_NULL)
     data_finalizacao = models.DateTimeField(null=True, blank=True)
 
+    def __str__(self):
+        return f'Cliente: {self.cliente.email} - ID Pedido: {self.id} - Finalizado: {self.finalizado}'
+
 
 class ItensPedido(models.Model):
     item_estoque = models.ForeignKey(ItemEstoque, null=True, blank=True, on_delete=models.SET_NULL)
     quantidade = models.IntegerField(default=0)
     pedido = models.ForeignKey(Pedido, null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f'ID Pedido: {self.pedido.id} - {self.item_estoque.produto} - Tamanho: {self.item_estoque.tamanho} - Cor: {self.item_estoque.cor.nome} - Quantidade: {self.quantidade} unidade(s)'
 
 
 class Banner(models.Model):
