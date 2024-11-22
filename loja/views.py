@@ -149,7 +149,29 @@ def carrinho(request):
 
 
 def checkout(request):
-    return render(request, 'checkout.html')
+    if request.user.is_authenticated:
+        cliente = request.user.cliente
+    else:
+        if request.COOKIES.get('id_sessao'):
+            id_sessao = request.COOKIES.get('id_sessao')
+            cliente, criado = Cliente.objects.get_or_create(id_sessao=id_sessao)
+        else:
+            return redirect('loja')
+
+    pedido, criado = Pedido.objects.get_or_create(cliente=cliente, finalizado=False)
+    enderecos = Endereco.objects.filter(cliente=cliente)
+
+    context = {
+        'pedido': pedido,
+        'enderecos': enderecos,
+    }
+
+    return render(request, 'checkout.html', context=context)
+
+
+def adicionar_endereco(request):
+    context = {}
+    return render(request, 'adicionar_endereco.html', context=context)
 
 
 def minha_conta(request):
