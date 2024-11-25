@@ -24,6 +24,7 @@ class Categoria(models.Model):
 
     # Categorias (Masculino, Feminino, Infantil)
     nome = models.CharField(max_length=200, null=True, blank=True)
+    slug = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return str(self.nome)
@@ -36,6 +37,7 @@ class Tipo(models.Model):
 
     # Tipos (Camisa, Camiseta, Bermuda, Calça)
     nome = models.CharField(max_length=200, null=True, blank=True)
+    slug = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return str(self.nome)
