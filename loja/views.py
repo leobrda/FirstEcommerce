@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 import uuid
-from .utils import filtrar_produtos
+from .utils import filtrar_produtos, preco_minimo_maximo
 
 
 def homepage(request):
@@ -19,8 +19,15 @@ def loja(request, filtro=None):
 
     produtos = filtrar_produtos(produtos, filtro)
 
+    minimo, maximo = preco_minimo_maximo(produtos)
+
+    tamanhos = ['P', 'M', 'G']
+
     context = {
         'produtos': produtos,
+        'minimo': minimo,
+        'maximo': maximo,
+        'tamanhos': tamanhos,
     }
 
     return render(request, 'loja.html', context=context)
