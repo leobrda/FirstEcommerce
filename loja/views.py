@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 import uuid
+from .utils import filtrar_produtos
 
 
 def homepage(request):
@@ -13,11 +14,10 @@ def homepage(request):
     return render(request, 'homepage.html', context=context)
 
 
-def loja(request, nome_categoria=None):
+def loja(request, filtro=None):
     produtos = Produto.objects.filter(ativo=True)
 
-    if nome_categoria:
-        produtos = produtos.filter(categoria__slug=nome_categoria)
+    produtos = filtrar_produtos(produtos, filtro)
 
     context = {
         'produtos': produtos,
