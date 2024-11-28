@@ -27,10 +27,10 @@ def carrinho(request):
 
 
 def categorias_tipos(request):
-    categorias = Categoria.objects.all()
-    tipos = Tipo.objects.all()
+    categorias_navegacao = Categoria.objects.all()
+    tipos_navegacao = Tipo.objects.all()
 
     return {
-        'categorias': categorias,
-        'tipos': tipos,
+        'categorias_navegacao': categorias_navegacao,
+        'tipos_navegacao': tipos_navegacao,
     }

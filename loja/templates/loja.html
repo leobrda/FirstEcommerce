@@ -6,6 +6,7 @@
     <h1>LOJA</h1>
 
     <form method="POST" action="">
+        {% csrf_token %}
         <p>Preço</p>
         <input type="number" name="preco_minimo" value= {% localize off %}{{ minimo }}{% endlocalize %}>
         <input type="number" name="preco_maximo" value={% localize off %}{{ maximo }}{% endlocalize %}>
@@ -23,7 +24,7 @@
         {% endfor %}
 
         <p>Tipo</p>
-        {% for tipo in tipos %}
+        {% for tipo in tipos_navegacao %}
             <input type="radio" name="tipo" value="{{ tipo.slug }}">
             <label for="{{ tipo.slug }}">{{ tipo.nome }}</label>
         {% endfor %}
