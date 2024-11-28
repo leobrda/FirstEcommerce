@@ -56,7 +56,7 @@ class Produto(models.Model):
     tipo = models.ForeignKey(Tipo, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return str(self.nome)
+        return f'Nome: {str(self.nome)}, Categoria: {self.categoria}, Tipo: {self.tipo}, Preço: {self.preco}'
 
 
 class Cor(models.Model):
@@ -139,7 +139,7 @@ class ItensPedido(models.Model):
     pedido = models.ForeignKey(Pedido, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f'ID Pedido: {self.pedido.id} - {self.item_estoque.produto} - Tamanho: {self.item_estoque.tamanho} - Cor: {self.item_estoque.cor.nome} - Quantidade: {self.quantidade} unidade(s)'
+        return f'ID Pedido: {self.pedido} - {self.item_estoque.produto} - Tamanho: {self.item_estoque.tamanho} - Cor: {self.item_estoque.cor.nome} - Quantidade: {self.quantidade} unidade(s)'
 
     @property
     def preco_total(self):

@@ -21,7 +21,8 @@ def loja(request, filtro=None):
 
     minimo, maximo = preco_minimo_maximo(produtos)
 
-    tamanhos = ['P', 'M', 'G']
+    itens = ItemEstoque.objects.filter(quantidade__gt=0, produto__in=produtos)
+    tamanhos = itens.values_list('tamanho', flat=True).distinct()
 
     context = {
         'produtos': produtos,
