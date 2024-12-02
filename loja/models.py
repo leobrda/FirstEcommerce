@@ -56,7 +56,12 @@ class Produto(models.Model):
     tipo = models.ForeignKey(Tipo, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f'Nome: {str(self.nome)}, Categoria: {self.categoria}, Tipo: {self.tipo}, Preço: {self.preco}'
+        return f'Nome: {str(self.nome)}, Categoria: {self.categoria}, Tipo: {self.tipo}, Preço: {self.preco}, Ativo: {self.ativo}'
+
+    def total_vendas(self):
+        itens = ItensPedido.objects.filter(pedido__finalizado=True, item_estoque__produto=self.id)
+        total = sum([item.quantidade for item in itens])
+        return total
 
 
 class Cor(models.Model):
