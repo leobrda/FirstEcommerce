@@ -229,3 +229,7 @@ def minha_conta(request):
 
 def login(request):
     return render(request, 'usuario/login.html')
+
+
+def criar_conta(request):
+    return render(request, 'usuario/criar_conta.html')
