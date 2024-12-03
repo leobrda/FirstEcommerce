@@ -301,3 +301,8 @@ def criar_conta(request):
         'erro': erro,
     }
     return render(request, 'usuario/criar_conta.html', context=context)
+
+
+def fazer_logout(request):
+    logout(request)
+    return redirect('fazer_login')
