@@ -14,6 +14,6 @@ urlpatterns = [
     path('adicionarendereco/', adicionar_endereco, name='adicionar_endereco'),
 
     path('minhaconta/', minha_conta, name='minha_conta'),
-    path('login/', login, name='login'),
+    path('fazer_login/', fazer_login, name='fazer_login'),
     path('criarconta/', criar_conta, name='criar_conta'),
 ]

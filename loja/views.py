@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 import uuid
 from .utils import filtrar_produtos, preco_minimo_maximo, ordenar_produtos
+from django.contrib.auth import login, logout, authenticate
 
 
 def homepage(request):
@@ -227,8 +228,28 @@ def minha_conta(request):
     return render(request, 'usuario/minha_conta.html')
 
 
-def login(request):
-    return render(request, 'usuario/login.html')
+def fazer_login(request):
+    erro = False
+    if request.user.is_authenticated:
+        return redirect('loja')
+    if request.method == 'POST':
+        dados = request.POST.dict()
+        if 'email' in dados and 'senha' in dados:
+            email = dados.get('email')
+            senha = dados.get('senha')
+            usuario = authenticate(request, username=email, password=senha)
+            if usuario:
+                login(request, usuario)
+                return redirect('loja')
+            else:
+                erro = True
+        else:
+            erro = True
+
+    context = {
+        'erro': erro,
+    }
+    return render(request, 'usuario/login.html', context=context)
 
 
 def criar_conta(request):
