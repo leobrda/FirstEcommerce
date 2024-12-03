@@ -119,7 +119,7 @@ class Pedido(models.Model):
     data_finalizacao = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f'Cliente: {self.cliente.email} - ID Pedido: {self.id} - Finalizado: {self.finalizado}'
+        return f'Cliente: {self.cliente} - ID Pedido: {self.id} - Finalizado: {self.finalizado}'
 
     @property
     def quantidade_total(self):
