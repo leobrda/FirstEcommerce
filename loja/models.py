@@ -137,6 +137,11 @@ class Pedido(models.Model):
         )
         return preco
 
+    @property
+    def itens(self):
+        itens_pedido = ItensPedido.objects.filter(pedido__id=self.id)
+        return itens_pedido
+
 
 class ItensPedido(models.Model):
     item_estoque = models.ForeignKey(ItemEstoque, null=True, blank=True, on_delete=models.SET_NULL)
