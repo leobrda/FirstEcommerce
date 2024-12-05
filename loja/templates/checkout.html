@@ -9,7 +9,7 @@
     <p>Preço Total Pedido: R${{ pedido.preco_total }}</p>
     <p>Total Produtos: {{ pedido.quantidade_total }}</p>
 
-    <form method="POST" action="">
+    <form method="POST" action="{% url 'finalizar_pedido' pedido.id %}">
         {% csrf_token %}
         <h3>Selecione o endereço de entrega</h3>
         <a href="{% url 'adicionar_endereco' %}">Adicionar endereço de entrega</a>

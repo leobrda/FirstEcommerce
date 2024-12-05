@@ -201,6 +201,38 @@ def checkout(request):
     return render(request, 'checkout.html', context=context)
 
 
+def finalizar_pedido(request, id_pedido):
+    if request.method == 'POST':
+        erro = None
+        dados = request.POST.dict()
+        total = dados.get('total')
+        pedido = Pedido.objects.get(id=id_pedido)
+
+        if total != pedido.preco_total:
+            erro = 'preco'
+
+        if not 'endereco' in dados:
+            erro = 'endereco'
+        else:
+            endereco = dados.get('endereco')
+
+        if not request.user.is_authenticated:
+            email = dados.get('email')
+            try:
+                validate_email(email)
+            except ValidationError:
+                erro = 'email'
+
+        context = {
+            'erro': erro,
+        }
+
+        return redirect('checkout')
+
+    else:
+        return redirect('loja')
+
+
 def adicionar_endereco(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
