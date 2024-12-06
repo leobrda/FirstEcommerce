@@ -1,6 +1,7 @@
 static/
 media/
 assets/
+loja/chaves.py
 
 # Django #
 *.log
