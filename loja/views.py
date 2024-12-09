@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import *
 import uuid
-from .utils import filtrar_produtos, preco_minimo_maximo, ordenar_produtos
+from .utils import filtrar_produtos, preco_minimo_maximo, ordenar_produtos, enviar_email_compra
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
@@ -276,6 +276,9 @@ def finalizar_pagamento(request):
         pedido.data_finalizacao = datetime.now()
         pedido.save()
         pagamento.save()
+
+        enviar_email_compra(pedido)
+
         if request.user.is_authenticated:
             return redirect('meus_pedidos')
         else:
