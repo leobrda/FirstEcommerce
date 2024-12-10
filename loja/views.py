@@ -466,3 +466,11 @@ def criar_conta(request):
 def fazer_logout(request):
     logout(request)
     return redirect('fazer_login')
+
+
+@login_required
+def gerenciar_loja(request):
+    if request.user.groups.filter(name='equipe').exists():
+        return render(request, 'interno/gerenciar_loja.html')
+    else:
+        redirect('loja')

@@ -23,6 +23,8 @@ urlpatterns = [
     path('criarconta/', criar_conta, name='criar_conta'),
     path('fazerlogout/', fazer_logout, name='fazer_logout'),
 
+    path('gerenciarloja/', gerenciar_loja, name='gerenciar_loja'),
+
     path("password_change/", views.PasswordChangeView.as_view(), name="password_change"),
     path("password_change/done/", views.PasswordChangeDoneView.as_view(), name="password_change_done"),
 
