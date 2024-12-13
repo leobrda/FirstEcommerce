@@ -81,6 +81,8 @@ def ver_produto(request, id_produto, id_cor=None):
             itens_estoque = ItemEstoque.objects.filter(produto=produto, quantidade__gt=0, cor__id=id_cor)
             tamanhos = {item.tamanho for item in itens_estoque}
 
+    similares = Produto.objects.filter(categoria__id=produto.categoria.id, tipo__id=produto.tipo.id).exclude(id=produto.id)[:4]
+
     context = {
         'produto': produto,
         'itens_estoque': itens_estoque,
@@ -88,6 +90,7 @@ def ver_produto(request, id_produto, id_cor=None):
         'cores': cores,
         'tamanhos': tamanhos,
         'cor_selecionada': cor_selecionada,
+        'similares': similares,
     }
 
     return render(request, 'ver_produto.html', context=context)
